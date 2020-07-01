@@ -1,0 +1,43 @@
+.navbar{
+    background-color: #F06292;
+
+}
+
+#link_brand{
+    color: white;
+}
+
+.button_add{
+    margin: 0;
+        position: absolute;
+
+        top: 20%;
+        left: 10%;
+        margin-right: -20%;
+       
+}
+
+.texto{
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: initial;
+    text-align: justify;
+    margin: 0;
+    margin-top: 0rem;
+    position: absolute;
+    overflow: auto;
+    top: 20%;
+    left: 13%;
+   align-items: center;
+    margin-right: -50%;
+    display: flex;
+    justify-content: center;
+   
+}
+
+#table_nivers{
+        background-color:white;
+        position: relative;
+        top: 140px;
+        left: 0%;
+       
+}
