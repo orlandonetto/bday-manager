@@ -8,215 +8,229 @@
 </head>
 <body>
 <div id="app">
-  <v-app>
-    <v-main>
-      <!--<v-container>Hello world</v-container>-->
+<v-app>
+<v-main>
+  <!--<v-container>Hello world</v-container>-->
 
-      <template>
-        <!-- <v-card
-          color="grey lighten-4"
-          flat
-          height="200px"
-          tile
-        > -->
-          <v-toolbar color="#FF80AB" dark dense>
-            <v-app-bar-nav-icon></v-app-bar-nav-icon>
+  <template>
+    <!-- <v-card
+      color="grey lighten-4"
+      flat
+      height="200px"
+      tile
+    > -->
+    <v-divider ></v-divider>
+      <v-toolbar color="#FF80AB" dark dense>
       
-            <v-toolbar-title>Blugon</v-toolbar-title>
-      
-            <v-spacer></v-spacer>
-      
-            <v-btn icon class="mb-2" fab dark small>
-              <v-icon dark>mdi-chevron-right-circle</v-icon>
-            </v-btn>
-          </v-toolbar>
+        <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
+  
+        <v-toolbar-title>Blugon</v-toolbar-title>
+  
+        <v-spacer></v-spacer>
+  
+        <v-btn icon class="mb-2" fab dark small>
+          <v-icon dark>mdi-chevron-right-circle</v-icon>
+        </v-btn>
+      </v-toolbar>
 
 
-          
-          <v-data-table
-  :headers="headers"
-  :items="desserts"
-  sort-by="calories"
-  class="elevation-1"
+      
+      <v-data-table
+:headers="headers"
+:items="desserts"
+sort-by="calories"
+class="elevation-1"
 >
-  <template v-slot:top>
-    <v-toolbar flat color="white">
-      <v-toolbar-title>Aniversários da Galera</v-toolbar-title>
-      <v-divider
-        class="mx-4"
-        inset
-    
-      ></v-divider>
-      <v-spacer></v-spacer>
-      <v-dialog v-model="dialog" max-width="500px">
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn class="rounded-circle"
-            color="#FF80AB"
-            dark 
-            v-on="on"
-          > <v-icon dark>mdi-plus</v-icon> Novo</v-btn>
-        </template>
-        <v-card>
-          <v-card-title>
-            <span class="headline">{{ formTitle }}</span>
-          </v-card-title>
+<template v-slot:top>
+<v-toolbar flat color="white">
+  <v-toolbar-title>Aniversários da Galera</v-toolbar-title>
+  <v-divider
+    class="mx-4"
+    inset
 
-          <v-card-text>
-            <v-container>
-              <v-row>
-                <v-col cols="12" sm="6" md="4">
-                  <v-text-field v-model="editedItem.name" label="Nome"></v-text-field>
-                </v-col>
-                <v-col cols="12" sm="6" md="4">
-                  <v-text-field v-model="editedItem.data2" label="Data"></v-text-field>
-                </v-col>
-                <v-col cols="12" sm="6" md="4">
-                  <v-text-field v-model="editedItem.idade" label="idade"></v-text-field>
-                </v-col>
-                
-              </v-row>
-            </v-container>
-          </v-card-text>
+  ></v-divider>
+  <v-spacer></v-spacer>
+  <v-dialog v-model="dialog" max-width="500px">
+    <template v-slot:activator="{ on, attrs }">
 
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="close">Cancelar</v-btn>
-            <v-btn color="blue darken-1" text @click="save">Salvar</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-    </v-toolbar>
-  </template>
-  <template v-slot:item.actions="{ item }">
-   
-    <v-icon
-      small
-      @click="deleteItem(item)"
-    >
-      mdi-delete
-    </v-icon>
-  </template>
-  <template v-slot:no-data>
-    <v-btn color="primary" @click="initialize">Reset</v-btn>
-  </template>
+      <v-btn class="rounded-circle d-flex mx-12 align-self-sm-center"
+        color="#FF80AB"
+        dark 
+        v-on="on"
+      > <v-icon dark>mdi-plus</v-icon> Novo</v-btn>
+      
+    </template>
+    <v-card height="mx-5">   
+      <v-card-title>
+        <span class="headline">{{ formTitle }}</span>
+      </v-card-title>
+
+      <v-card-text>
+        <v-container>
+          <v-row>
+            <v-col cols="12" sm="6" md="4">
+              <v-text-field v-model="editedItem.name" label="Nome"></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="6" md="4">
+              <v-text-field v-model="editedItem.data2" label="Data"></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="6" md="4">
+              <v-text-field v-model="editedItem.idade" v-bind:disabled="!isValid"  label="idade"></v-text-field>
+            </v-col>
+            
+          </v-row>
+        </v-container>
+      </v-card-text>
+
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn color="blue darken-1" text @click="close">Cancelar</v-btn>
+        <v-btn color="blue darken-1" text @click="save">Salvar</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+</v-toolbar>
+</template>
+<template v-slot:item.actions="{ item }">
+
+<v-icon
+  small
+  @click="deleteItem(item)"
+>
+  mdi-delete
+</v-icon>
+</template>
+<template v-slot:no-data>
+<v-btn color="primary" @click="initialize">Reset</v-btn>
+</template>
 </v-data-table>
 </template>
 
-      <!---->  </v-card>
-      </template>
+  <!---->  </v-card>
 
-    </v-main>
-  </v-app>
+
+  </template>
+
+</v-main>
+</v-app>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
 
 <script>
-  new Vue({
-    el: '#app',
-    vuetify: new Vuetify(),
-  data: () => ({
-    dialog: false,
-    headers: [
-      {
-        text: 'Nome',
-        align: 'start',
-        sortable: false,
-        value: 'name',
-      },
-     
+new Vue({
+el: '#app',
+vuetify: new Vuetify(),
+data: () => ({
+dialog: false,
+headers: [
+  {
+    text: 'Nome',
+    align: 'start',
+    sortable: false,
+    value: 'name',
+  },
+  
 
-      { text: 'Data', value: 'data2' },
-      { text: 'Idade', value: 'idade' },
-      { text: 'Excluir', value: 'actions', sortable: false },
-    ],
-    desserts: [],
-    editedIndex: -1,
-    editedItem: {
-      nome: '',
-      data2: '',
-      idade: '',
-     
-    
+  { text: 'Data', value: 'data2' },
+  { text: 'Idade', value: 'idade' },
+  { text: 'Excluir', value: 'actions', sortable: false },
+],
+desserts: [],
+editedIndex: -1,
+editedItem: {
+  nome: '',
+  data2: '',
+  idade: '',
+  
+
+},
+defaultItem: {
+  nome: '',
+  idade: '',
+  data2: '',
+  
+},
+}),
+
+computed: {
+formTitle () {
+  return this.editedIndex === -1 ? 'Novo aniversário' : 'Edit Item'
+},
+},
+
+watch: {
+dialog (val) {
+  val || this.close()
+},
+},
+
+created () {
+this.initialize()
+},
+
+    isValid: function () {
+      return this.editedItem.idade;
     },
-    defaultItem: {
-      nome: '',
-     idade: '',
-      data2: '',
+
+methods: {
+
+
+initialize () {
+  this.desserts = [
+    {
+      name: 'aline',
+      data2: '16/02/1995',
+      idade: 25,
       
     },
-  }),
-
-  computed: {
-    formTitle () {
-      return this.editedIndex === -1 ? 'Novo aniversário' : 'Edit Item'
-    },
-  },
-
-  watch: {
-    dialog (val) {
-      val || this.close()
-    },
-  },
-
-  created () {
-    this.initialize()
-  },
-
-  methods: {
+    {
+      name: 'alice',
+      data2: '12/03/1995',
+      idade: 24,
+      
+    },    
     
+  ]
+},
 
-    initialize () {
-      this.desserts = [
-        {
-          name: 'aline',
-          data2: '16/02/1995',
-          idade: 25,
-         
-        },
-        {
-          name: 'alice',
-          data2: '12/03/1995',
-          idade: 24,
-          
-        },
-        
-        
-      ]
-    },
+editItem (item) {
+  this.editedIndex = this.desserts.indexOf(item)
+  this.editedItem = Object.assign({}, item)
+  this.dialog = true
+},
 
-    editItem (item) {
-      this.editedIndex = this.desserts.indexOf(item)
-      this.editedItem = Object.assign({}, item)
-      this.dialog = true
-    },
+deleteItem (item) {
+  const index = this.desserts.indexOf(item)
+  confirm('Deseja realmente deletar?') && this.desserts.splice(index, 1)
+},
 
-    deleteItem (item) {
-      const index = this.desserts.indexOf(item)
-      confirm('Deseja realmente deletar?') && this.desserts.splice(index, 1)
-    },
-
-    close () {
-      this.dialog = false
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem)
-        this.editedIndex = -1
-      })
-    },
-
-    save () {
-      if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.editedItem)
-      } else {
-        this.desserts.push(this.editedItem)
-      }
-      this.close()
-    },
-  },
-
-    
+close () {
+  this.dialog = false
+  this.$nextTick(() => {
+    this.editedItem = Object.assign({}, this.defaultItem)
+    this.editedIndex = -1
   })
+},
+
+save () {
+  if (this.editedIndex > -1) {
+    Object.assign(this.desserts[this.editedIndex], this.editedItem)
+  } else {
+    this.desserts.push(this.editedItem)
+  }
+  this.close()
+},
+},
+
+
+})
 </script>
+
+<style>
+
+</style>
+
 </body>
 </html>
