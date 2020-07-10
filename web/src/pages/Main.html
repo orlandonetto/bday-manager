@@ -10,18 +10,19 @@
 
 <body>
   <div id="app">
+    <inputCont @enviar="Idade" />
     <v-app>
       <v-main>
 
         <template>
-        
+
           <v-divider></v-divider>
           <v-toolbar color="#FF80AB" dark dense>
 
             <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
 
             <v-toolbar-side-icon>
-              <v-img class="mr-3" src="..\web\logo_blugon.png" height="30px" width="40px">
+              <v-img class="mr-3" src="..\assets\logo_blugon.PNG" height="30px" width="40px">
               </v-img>
             </v-toolbar-side-icon>
 
@@ -42,7 +43,7 @@
                 <v-toolbar-title>Aniversários da Galera</v-toolbar-title>
                 <v-divider class="mx-4" inset></v-divider>
                 <v-spacer></v-spacer>
-                <v-dialog v-model="dialog" max-width="500px">
+                <v-dialog id="modal_cadastro"  v-model="dialog" dark max-width="900px">
                   <template v-slot:activator="{ on, attrs }">
 
                     <v-btn class="rounded d-flex mx-12 align-self-sm-center" color="#FF80AB" dark v-on="on">
@@ -59,13 +60,22 @@
                       <v-container>
                         <v-row>
                           <v-col cols="12" sm="6" md="4">
-                            <v-text-field v-model="editedItem.name" single-line label="Nome"></v-text-field>
+                            <v-text-field v-model="editedItem.name" id="nome" single-line label="Nome"></v-text-field>
                           </v-col>
                           <v-col cols="12" sm="6" md="4">
-                            <v-text-field v-model="editedItem.data2" label="Data"></v-text-field>
+                            <v-text-field v-model="editedItem.dia" id="dia" label="Dia"></v-text-field>
                           </v-col>
                           <v-col cols="12" sm="6" md="4">
-                            <v-text-field disabled v-model="editedItem.idade" label="idade"></v-text-field>
+                            <v-text-field v-model="editedItem.mes" id="mes" label="Mes"></v-text-field>
+                          </v-col>
+                          <v-col cols="12" sm="6" md="4">
+                            <v-text-field v-model="editedItem.ano" id="ano" label="Ano"></v-text-field>
+                          </v-col>
+                          <v-col cols="12" sm="6" md="4">
+                            <v-text-field v-model="editedItem.idade" label="idade" disabled v-on:click="Idade">
+                            </v-text-field>
+                            <v-btn v-on:click="Idade">enviar </v-btn>
+
                           </v-col>
 
                         </v-row>
@@ -149,6 +159,8 @@
         formTitle() {
           return this.editedIndex === -1 ? 'Novo aniversário' : 'Edit Item'
         },
+
+
       },
 
       watch: {
@@ -171,7 +183,6 @@
               name: 'aline',
               data2: '16/02/1995',
               idade: 25,
-
             },
             {
               name: 'alice',
@@ -179,9 +190,20 @@
               idade: 24,
 
             },
-
           ]
         },
+
+        Idade() {
+
+          // Nao esquecer: Adicionar uma função que calcule corretamente...//
+          var s1 = 2020;
+          var s2 = document.getElementById("ano").value;
+          var s3 = parseInt((s1)) - parseInt((s2));
+          // Receber o resultado no front de outra maneira, que não seja através de alerta//
+          alert('Sua idade eh: ' + s3);
+
+        },
+
 
         editItem(item) {
           this.editedIndex = this.desserts.indexOf(item)
@@ -214,9 +236,13 @@
 
 
     })
+
+
   </script>
 
   <style>
+
+
 
   </style>
 
