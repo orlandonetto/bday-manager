@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://unpkg.com/vuetify"></script>
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+
+  <script src="../functions/functions.js"></script>
+</head>
+
+<body>
+<div id="app">
+  <v-data-table
+      style="text-align: center"
+      :headers="headers"
+      :items="items"
+  ></v-data-table>
+</div>
+</body>
+
+<script>
+  new Vue({
+    el: "#app",
+    vuetify: new Vuetify(),
+    data: {
+      headers: [
+        {text: 'name', value: 'name'},
+        {text: 'date', value: 'date'},
+        {text: 'age', value: 'age'},
+      ],
+      items: []
+    },
+    created() {
+      getBirthdays()
+        .then(res => {
+          this.items = res.birthdays;
+        })
+        .catch(error => {
+          alert("Data get failed. Error: " + error.message);
+        })
+    }
+  })
+</script>
+</html>
