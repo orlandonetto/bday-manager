@@ -18,6 +18,16 @@
       :headers="headers"
       :items="items"
   ></v-data-table>
+
+  <v-btn @click="activeDialogNewBirthday">New</v-btn>
+  <v-btn v-if="dialogNewBirthday" @click="disableDialogNewBirthday">Cancel</v-btn>
+
+  <div v-if="dialogNewBirthday">
+    <v-text-field v-model="form.name" label="Name"></v-text-field>
+    <v-text-field v-model="form.date" label="Date" type="date"></v-text-field>
+    <v-text-field v-model="form.age" label="Age"></v-text-field>
+    <v-btn @click="save">Create</v-btn>
+  </div>
 </div>
 </body>
 
@@ -26,6 +36,12 @@
     el: "#app",
     vuetify: new Vuetify(),
     data: {
+      dialogNewBirthday: false,
+      form: {
+        name: '',
+        data: '',
+        age: '',
+      },
       headers: [
         {text: 'name', value: 'name'},
         {text: 'date', value: 'date'},
@@ -33,14 +49,49 @@
       ],
       items: []
     },
+    methods: {
+      save() {
+        createBirthday(this.form)
+          .then(res => {
+            alert(res.message);
+
+            // Get new list birthdays
+            this.get();
+
+            // Closing form
+            this.disableDialogNewBirthday()
+          })
+          .catch(error => {
+            alert(error.message)
+          })
+      },
+
+      get() {
+        getBirthdays()
+          .then(res => {
+            this.items = res.birthdays;
+          })
+          .catch(error => {
+            alert("Data get failed. Error: " + error.message);
+          })
+      },
+
+      activeDialogNewBirthday() {
+        this.dialogNewBirthday = true;
+      },
+
+      disableDialogNewBirthday() {
+        this.dialogNewBirthday = false;
+
+        // Cleaning form
+        this.form.name = '';
+        this.form.date = '';
+        this.form.age = '';
+      }
+
+    },
     created() {
-      getBirthdays()
-        .then(res => {
-          this.items = res.birthdays;
-        })
-        .catch(error => {
-          alert("Data get failed. Error: " + error.message);
-        })
+      this.get();
     }
   })
 </script>
