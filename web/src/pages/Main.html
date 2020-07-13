@@ -6,245 +6,330 @@
   <link href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
-</head>
-
-<body>
-  <div id="app">
-    <inputCont @enviar="Idade" />
-    <v-app>
-      <v-main>
-
-        <template>
-
-          <v-divider></v-divider>
-          <v-toolbar color="#FF80AB" dark dense>
-
-            <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
-
-            <v-toolbar-side-icon>
-              <v-img class="mr-3" src="..\assets\logo_blugon.PNG" height="30px" width="40px">
-              </v-img>
-            </v-toolbar-side-icon>
-
-            <v-toolbar-title>Blugon</v-toolbar-title>
-
-            <v-spacer></v-spacer>
-
-            <v-btn icon class="mb-2" fab dark small>
-              <v-icon dark>mdi-chevron-right-circle</v-icon>
-            </v-btn>
-          </v-toolbar>
-
-
-
-          <v-data-table :headers="headers" :items="desserts" sort-by="calories" class="elevation-1">
-            <template v-slot:top>
-              <v-toolbar flat color="white">
-                <v-toolbar-title>Aniversários da Galera</v-toolbar-title>
-                <v-divider class="mx-4" inset></v-divider>
-                <v-spacer></v-spacer>
-                <v-dialog id="modal_cadastro"  v-model="dialog" dark max-width="900px">
-                  <template v-slot:activator="{ on, attrs }">
-
-                    <v-btn class="rounded d-flex mx-12 align-self-sm-center" color="#FF80AB" dark v-on="on">
-                      <v-icon dark>mdi-plus</v-icon> Novo
-                    </v-btn>
-
-                  </template>
-                  <v-card height="mx-5">
-                    <v-card-title>
-                      <span class="headline">{{ formTitle }}</span>
-                    </v-card-title>
-
-                    <v-card-text>
-                      <v-container>
-                        <v-row>
-                          <v-col cols="12" sm="6" md="4">
-                            <v-text-field v-model="editedItem.name" id="nome" single-line label="Nome"></v-text-field>
-                          </v-col>
-                          <v-col cols="12" sm="6" md="4">
-                            <v-text-field v-model="editedItem.dia" id="dia" label="Dia"></v-text-field>
-                          </v-col>
-                          <v-col cols="12" sm="6" md="4">
-                            <v-text-field v-model="editedItem.mes" id="mes" label="Mes"></v-text-field>
-                          </v-col>
-                          <v-col cols="12" sm="6" md="4">
-                            <v-text-field v-model="editedItem.ano" id="ano" label="Ano"></v-text-field>
-                          </v-col>
-                          <v-col cols="12" sm="6" md="4">
-                            <v-text-field v-model="editedItem.idade" label="idade" disabled v-on:click="Idade">
-                            </v-text-field>
-                            <v-btn v-on:click="Idade">enviar </v-btn>
-
-                          </v-col>
-
-                        </v-row>
-                      </v-container>
-                    </v-card-text>
-
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn color="blue darken-1" text @click="close">Cancelar</v-btn>
-                      <v-btn color="blue darken-1" text @click="save">Salvar</v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
-              </v-toolbar>
-            </template>
-            <template v-slot:item.actions="{ item }">
-
-              <v-icon small @click="deleteItem(item)">
-                mdi-delete
-              </v-icon>
-            </template>
-            <template v-slot:no-data>
-              <v-btn color="primary" @click="initialize">Reset</v-btn>
-            </template>
-          </v-data-table>
-        </template>
-
-        <!---->
-        </v-card>
-
-
-        </template>
-
-
-
-
-      </v-main>
-    </v-app>
-  </div>
-
   <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
 
-  <script>
-    new Vue({
-      el: '#app',
-      vuetify: new Vuetify(),
-      data: () => ({
-        dialog: false,
-        headers: [
-          {
-            text: 'Nome',
-            align: 'start',
-            sortable: false,
-            value: 'name',
-          },
+  <script src="../functions/functions.js"></script>
+</head>
+
+<body>
+<div id="app">
+  <inputCont @enviar="Idade"/>
+  <v-app>
+    <v-main>
+
+      <template>
+
+        <v-divider></v-divider>
+        <v-toolbar color="#FF80AB" dark dense>
+
+          <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
+
+          <v-toolbar-side-icon>
+            <v-img class="mr-3" src="..\assets\logo_blugon.PNG" height="30px" width="40px">
+            </v-img>
+          </v-toolbar-side-icon>
+
+          <v-toolbar-title>Blugon</v-toolbar-title>
+
+          <v-spacer></v-spacer>
+
+          <v-btn icon class="mb-2" fab dark small>
+            <v-icon dark>mdi-chevron-right-circle</v-icon>
+          </v-btn>
+        </v-toolbar>
 
 
-          { text: 'Data', value: 'data2' },
-          { text: 'Idade', value: 'idade' },
-          { text: 'Excluir', value: 'actions', sortable: false },
-        ],
-        desserts: [],
-        editedIndex: -1,
-        editedItem: {
-          nome: '',
-          data2: '',
-          idade: '',
+        <v-data-table :headers="headers" :items="desserts" sort-by="calories" class="elevation-1">
+          <template v-slot:top>
+            <v-toolbar flat color="white">
+              <v-toolbar-title>Aniversários da Galera</v-toolbar-title>
+              <v-divider class="mx-4" inset></v-divider>
+              <v-spacer></v-spacer>
+              <v-dialog id="modal_cadastro" v-model="dialog" dark max-width="900px">
+                <template v-slot:activator="{ on, attrs }">
+
+                  <v-btn class="rounded d-flex mx-12 align-self-sm-center" color="#FF80AB" dark v-on="on">
+                    <v-icon dark>mdi-plus</v-icon>
+                    Novo
+                  </v-btn>
+
+                </template>
+                <v-card height="mx-5">
+                  <v-card-title>
+                    <span class="headline">{{ formTitle }}</span>
+                  </v-card-title>
+
+                  <v-card-text>
+                    <v-container>
+                      <v-row>
+                        <v-col cols="12" sm="6" md="4">
+                          <v-text-field v-model="editedItem.name" id="nome" single-line label="Nome"></v-text-field>
+                        </v-col>
+                        <v-col cols="12" sm="6" md="4">
+                          <v-text-field v-model="editedItem.dia" id="dia" label="Dia"></v-text-field>
+                        </v-col>
+                        <v-col cols="12" sm="6" md="4">
+                          <v-text-field v-model="editedItem.mes" id="mes" label="Mes"></v-text-field>
+                        </v-col>
+                        <v-col cols="12" sm="6" md="4">
+                          <v-text-field v-model="editedItem.ano" id="ano" label="Ano"></v-text-field>
+                        </v-col>
+                        <v-col cols="12" sm="6" md="4">
+                          <v-text-field v-model="editedItem.idade" label="idade" disabled v-on:click="Idade">
+                          </v-text-field>
+                          <v-btn v-on:click="Idade">enviar</v-btn>
+
+                        </v-col>
+
+                      </v-row>
+                    </v-container>
+                  </v-card-text>
+
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="blue darken-1" text @click="close">Cancelar</v-btn>
+                    <v-btn color="blue darken-1" text @click="save">Salvar</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </v-toolbar>
+          </template>
+          <template v-slot:item.actions="{ item }">
+
+            <v-icon small @click="deleteItem(item)">
+              mdi-delete
+            </v-icon>
+          </template>
+          <template v-slot:no-data>
+            <v-btn color="primary" @click="initialize">Reset</v-btn>
+          </template>
+        </v-data-table>
+      </template>
+
+      <!---->
+      </v-card>
 
 
+      </template>
+
+
+    </v-main>
+  </v-app>
+</div>
+
+<script>
+  new Vue({
+    el: '#app',
+    vuetify: new Vuetify(),
+    data: () => ({
+      dialog: false,
+      headers: [
+        {
+          text: 'Nome',
+          align: 'start',
+          sortable: false,
+          value: 'name',
         },
-        defaultItem: {
-          nome: '',
-          idade: '',
-          data2: '',
 
-        },
-      }),
 
-      computed: {
-        formTitle() {
-          return this.editedIndex === -1 ? 'Novo aniversário' : 'Edit Item'
-        },
+        {text: 'Data', value: 'data2'},
+        {text: 'Idade', value: 'idade'},
+        {text: 'Excluir', value: 'actions', sortable: false},
+      ],
+      desserts: [],
+      editedIndex: -1,
+      editedItem: {
+        nome: '',
+        data2: '',
+        idade: '',
 
 
       },
+      defaultItem: {
+        nome: '',
+        idade: '',
+        data2: '',
 
-      watch: {
-        dialog(val) {
-          val || this.close()
-        },
+      },
+    }),
+
+    computed: {
+      formTitle() {
+        return this.editedIndex === -1 ? 'Novo aniversário' : 'Edit Item'
       },
 
-      created() {
-        this.initialize()
+
+    },
+
+    watch: {
+      dialog(val) {
+        val || this.close()
       },
+    },
+
+    created() {
+      this.initialize()
+    },
 
 
-      methods: {
-
-
-        initialize() {
-          this.desserts = [
-            {
-              name: 'aline',
-              data2: '16/02/1995',
-              idade: 25,
-            },
-            {
-              name: 'alice',
-              data2: '12/03/1995',
-              idade: 24,
-
-            },
-          ]
-        },
-
-        Idade() {
-
-          // Nao esquecer: Adicionar uma função que calcule corretamente...//
-          var s1 = 2020;
-          var s2 = document.getElementById("ano").value;
-          var s3 = parseInt((s1)) - parseInt((s2));
-          // Receber o resultado no front de outra maneira, que não seja através de alerta//
-          alert('Sua idade eh: ' + s3);
-
-        },
-
-
-        editItem(item) {
-          this.editedIndex = this.desserts.indexOf(item)
-          this.editedItem = Object.assign({}, item)
-          this.dialog = true
-        },
-
-        deleteItem(item) {
-          const index = this.desserts.indexOf(item)
-          confirm('Deseja realmente deletar?') && this.desserts.splice(index, 1)
-        },
-
-        close() {
-          this.dialog = false
-          this.$nextTick(() => {
-            this.editedItem = Object.assign({}, this.defaultItem)
-            this.editedIndex = -1
+    methods: {
+      // ********** GET **********
+      get() {
+        getBirthdays()
+          .then(res => {
+            /*
+             *
+             * SUCCESS
+             *
+             */
           })
-        },
+          .catch(error => {
+            /*
+             *
+             * ERROR
+             *
+             */
+          })
+      },
 
-        save() {
-          if (this.editedIndex > -1) {
-            Object.assign(this.desserts[this.editedIndex], this.editedItem)
-          } else {
-            this.desserts.push(this.editedItem)
-          }
-          this.close()
-        },
+      // ********** INSERT **********
+      insert() {
+        const request = {
+          // *** OBJ REQUEST ***
+        }
+
+        createBirthday(request)
+          .then(res => {
+            /*
+             *
+             * SUCCESS
+             *
+             */
+          })
+          .catch(error => {
+            /*
+             *
+             * ERROR
+             *
+             */
+          })
+      },
+
+      // ********** UPDATE **********
+      update() {
+        const request = {
+          // *** OBJ REQUEST ***
+        }
+
+        updateBirthday(request)
+          .then(res => {
+            /*
+             *
+             * SUCCESS
+             *
+             */
+          })
+          .catch(error => {
+            /*
+             *
+             * ERROR
+             *
+             */
+          })
+      },
+
+      // ********** DELETE **********
+      remove() {
+        const request = {
+          // *** OBJ REQUEST ***
+        }
+
+        removeBirthday(request)
+          .then(res => {
+            /*
+             *
+             * SUCCESS
+             *
+             */
+          })
+          .catch(error => {
+            /*
+             *
+             * ERROR
+             *
+             */
+          })
+      },
+
+      // **************************************** //
+      initialize() {
+        this.desserts = [
+          {
+            name: 'aline',
+            data2: '16/02/1995',
+            idade: 25,
+          },
+          {
+            name: 'alice',
+            data2: '12/03/1995',
+            idade: 24,
+
+          },
+        ]
+      },
+
+      Idade() {
+
+        // Nao esquecer: Adicionar uma função que calcule corretamente...//
+        var s1 = 2020;
+        var s2 = document.getElementById("ano").value;
+        var s3 = parseInt((s1)) - parseInt((s2));
+        // Receber o resultado no front de outra maneira, que não seja através de alerta//
+        alert('Sua idade eh: ' + s3);
+
       },
 
 
-    })
+      editItem(item) {
+        this.editedIndex = this.desserts.indexOf(item)
+        this.editedItem = Object.assign({}, item)
+        this.dialog = true
+      },
+
+      deleteItem(item) {
+        const index = this.desserts.indexOf(item)
+        confirm('Deseja realmente deletar?') && this.desserts.splice(index, 1)
+      },
+
+      close() {
+        this.dialog = false
+        this.$nextTick(() => {
+          this.editedItem = Object.assign({}, this.defaultItem)
+          this.editedIndex = -1
+        })
+      },
+
+      save() {
+        if (this.editedIndex > -1) {
+          Object.assign(this.desserts[this.editedIndex], this.editedItem)
+        } else {
+          this.desserts.push(this.editedItem)
+        }
+        this.close()
+      },
+    },
 
 
-  </script>
-
-  <style>
+  })
 
 
+</script>
 
-  </style>
+<style>
+
+
+</style>
 
 </body>
 
