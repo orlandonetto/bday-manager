@@ -58,17 +58,19 @@
                   </v-btn>
 
                 </template>
-                <v-card height="mx-5">
+                <v-card color="#FF80AB" height="mx-5">
                   <v-card-title>
                     <span class="headline">{{ formTitle }}</span>
                   </v-card-title>
 
-                  <v-card-text>
-                    <v-container>
-                      <v-row>
+                  <v-card-text color="#385F73"> 
+                    <v-container color="#385F73">
+                      <v-row >
                         <v-col cols="12" sm="6" md="4">
-                          <v-text-field v-model="editedItem.name" id="nome" single-line label="Nome"></v-text-field>
+                          
+                          <v-text-field v-model="editedItem.name" id="nome" label="Nome"></v-text-field>
                         </v-col>
+                      
                         <v-col cols="12" sm="6" md="4">
                           <v-text-field v-model="editedItem.dia" id="dia" label="Dia"></v-text-field>
                         </v-col>
@@ -79,9 +81,9 @@
                           <v-text-field v-model="editedItem.ano" id="ano" label="Ano"></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" md="4">
-                          <v-text-field v-model="editedItem.idade" label="idade" disabled v-on:click="Idade">
+                          <v-text-field class="display" v-model="editedItem.idade" label="idade" v-on:click="Idade">
                           </v-text-field>
-                          <v-btn v-on:click="Idade">enviar</v-btn>
+                          <v-btn color="white"light v-on:click="Idade">Enviar</v-btn>
 
                         </v-col>
 
@@ -89,10 +91,10 @@
                     </v-container>
                   </v-card-text>
 
-                  <v-card-actions>
+                  <v-card-actions color="#FF80AB">
                     <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" text @click="close">Cancelar</v-btn>
-                    <v-btn color="blue darken-1" text @click="save">Salvar</v-btn>
+                    <v-btn color="white" text @click="close">Cancelar</v-btn>
+                    <v-btn color="white" text @click="save">Salvar</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-dialog>
