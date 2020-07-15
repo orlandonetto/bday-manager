@@ -17,7 +17,7 @@
 
 <body>
   <div id="app">
-    <inputCont @enviar="Idade"></inputCont>
+    <inputCont @enviar="idade"></inputCont>
     <v-app>
       <v-main>
 
@@ -86,13 +86,18 @@
                           <v-col cols="12" sm="6" md="4">
                             <v-text-field v-model="editedItem.data" label="Data" type="date">
                             </v-text-field>
+              
                             <v-col cols="12" sm="6" md="4">
-                              <v-text-field class="display" v-model="editedItem.idade" label="idade"
+                              <v-text-field v-model="editedItem.anoAtual" id="anoAtual" label="Ano atual"
                                 onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                               </v-text-field>
                               <!--<v-btn color="white" light v-on:click="Idade">Enviar</v-btn>-->
-
-
+                            </v-col>
+                            <v-col cols="12" sm="6" md="4">
+                              <v-btn v-model="editedItem.idade" id="idade" label="idade"
+                                onkeypress="return event.charCode >= 48 && event.charCode <= 57" v-on:click="idade">
+                              </v-btn>
+                              <!--<v-btn color="white" light v-on:click="Idade">Enviar</v-btn>-->
                             </v-col>
 
                         </v-row>
@@ -102,7 +107,7 @@
                     <v-card-actions color="#FF80AB">
                       <v-spacer></v-spacer>
                       <v-btn color="white" text @click="close">Cancelar</v-btn>
-                      <v-btn color="white" text @click="save" v-on:click="Idade">Salvar</v-btn>
+                      <v-btn color="white" text @click="save" v-on:click="idade">Salvar</v-btn>
                     </v-card-actions>
                   </v-card>
                 </v-dialog>
@@ -135,6 +140,12 @@
       el: '#app',
       vuetify: new Vuetify(),
       data: () => ({
+        editedItem:{
+        ano : '',
+        anoAtual: '',
+        },
+      
+
         dialog: false,
         headers: [
           {
@@ -175,6 +186,7 @@
       },
 
       watch: {
+        
         dialog(val) {
           val || this.close()
         },
@@ -186,6 +198,33 @@
 
 
       methods: {
+        idade() {
+
+// Nao esquecer: Adicionar uma função que calcule corretamente...//
+//var s1 = 2020;
+//var s2 = document.getElementById("ano").value;
+//var s3 = parseInt((s1)) - parseInt((s2));
+// Receber o resultado no front de outra maneira, que não seja através de alerta//
+// this.s3;
+//alert('Sua idade eh: ' + s3);
+
+//console.log("tchou");
+//const elementIdade = document.getElementById("idade");
+//const s1 = 2020;
+//const s2 = document.getElementById("ano").value;
+
+//const ano = document.getElementById("editedItem.ano");
+//const anoAtual = document.getElementById("editedItem.anoAtual");
+const CalcIdade = this.editedItem.anoAtual - this.editedItem.ano;
+console.log(this.editedItem.ano);
+console.log(this.editedItem.anoAtual);
+console.log(CalcIdade);
+
+//elementIdade.value = parseInt((s1)) - parseInt((s2));
+//console.log(elementIdade);
+
+},
+
         // ********** INSERT **********
         insert() {
           const request = {
@@ -286,17 +325,7 @@
           ]
         },
 
-        Idade() {
-
-          // Nao esquecer: Adicionar uma função que calcule corretamente...//
-          var s1 = 2020;
-          var s2 = document.getElementById("ano").value;
-          var s3 = parseInt((s1)) - parseInt((s2));
-          // Receber o resultado no front de outra maneira, que não seja através de alerta//
-          this.s3;
-          alert('Sua idade eh: ' + s3);
-
-        },
+       
 
 
         editItem(item) {
@@ -330,6 +359,8 @@
 
 
     })
+
+  
 
 
   </script>
