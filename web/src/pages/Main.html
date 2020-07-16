@@ -86,7 +86,7 @@
                           <v-col cols="12" sm="6" md="4">
                             <v-text-field v-model="editedItem.data" label="Data" type="date">
                             </v-text-field>
-              
+
                             <v-col cols="12" sm="6" md="4">
                               <v-text-field v-model="editedItem.anoAtual" id="anoAtual" label="Ano atual"
                                 onkeypress="return event.charCode >= 48 && event.charCode <= 57">
@@ -97,10 +97,15 @@
                               <v-btn v-model="editedItem.idade" id="idade" label="idade"
                                 onkeypress="return event.charCode >= 48 && event.charCode <= 57" v-on:click="idade">
                               </v-btn>
+                              <v-btn label="vendo a idade" v-bind="calcIdade" v-on:click="visualizarIdade"></v-btn>
+
+                              <p>{{calcIdad  e}}</p>
+
                               <!--<v-btn color="white" light v-on:click="Idade">Enviar</v-btn>-->
                             </v-col>
 
                         </v-row>
+
                       </v-container>
                     </v-card-text>
 
@@ -140,11 +145,17 @@
       el: '#app',
       vuetify: new Vuetify(),
       data: () => ({
-        editedItem:{
-        ano : '',
-        anoAtual: '',
+        editedItem: {
+          ano: '',
+          anoAtual: '',
+          CalcIdade: '10',
+          teste: 'alou',
+
+
+
+
         },
-      
+
 
         dialog: false,
         headers: [
@@ -186,7 +197,7 @@
       },
 
       watch: {
-        
+
         dialog(val) {
           val || this.close()
         },
@@ -200,30 +211,40 @@
       methods: {
         idade() {
 
-// Nao esquecer: Adicionar uma função que calcule corretamente...//
-//var s1 = 2020;
-//var s2 = document.getElementById("ano").value;
-//var s3 = parseInt((s1)) - parseInt((s2));
-// Receber o resultado no front de outra maneira, que não seja através de alerta//
-// this.s3;
-//alert('Sua idade eh: ' + s3);
+          // Nao esquecer: Adicionar uma função que calcule corretamente...//
+          //var s1 = 2020;
+          //var s2 = document.getElementById("ano").value;
+          //var s3 = parseInt((s1)) - parseInt((s2));
+          // Receber o resultado no front de outra maneira, que não seja através de alerta//
+          // this.s3;
+          //alert('Sua idade eh: ' + s3);
 
-//console.log("tchou");
-//const elementIdade = document.getElementById("idade");
-//const s1 = 2020;
-//const s2 = document.getElementById("ano").value;
+          //console.log("tchou");
+          //const elementIdade = document.getElementById("idade");
+          //const s1 = 2020;
+          //const s2 = document.getElementById("ano").value;
 
-//const ano = document.getElementById("editedItem.ano");
-//const anoAtual = document.getElementById("editedItem.anoAtual");
-const CalcIdade = this.editedItem.anoAtual - this.editedItem.ano;
-console.log(this.editedItem.ano);
-console.log(this.editedItem.anoAtual);
-console.log(CalcIdade);
+          //const ano = document.getElementById("editedItem.ano");
+          //const anoAtual = document.getElementById("editedItem.anoAtual");
+          this.CalcIdade = this.editedItem.anoAtual - this.editedItem.ano;
+          //console.log(this.editedItem.ano);
+          //console.log(this.editedItem.anoAtual);
+          //console.log(CalcIdade);
+          alert(this.CalcIdade);
 
-//elementIdade.value = parseInt((s1)) - parseInt((s2));
-//console.log(elementIdade);
 
-},
+          //elementIdade.value = parseInt((s1)) - parseInt((s2));
+          //console.log(elementIdade);
+
+        },
+
+        visualizarIdade() {
+          verIdade = "sua idade eh:" + this.CalcIdade;
+          //console.log(verIdade);
+          //alert(verIdade);
+        },
+
+
 
         // ********** INSERT **********
         insert() {
@@ -325,7 +346,7 @@ console.log(CalcIdade);
           ]
         },
 
-       
+
 
 
         editItem(item) {
@@ -360,7 +381,7 @@ console.log(CalcIdade);
 
     })
 
-  
+
 
 
   </script>
